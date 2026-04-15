@@ -108,5 +108,5 @@ API_URL = "https://api.302.ai/recraft/v1/images/removeBackground"
 
 ### 开源项目继承
 
-本项目是继承自 [Godogen](https://github.com/alex-erm/godogen) 项目的，添加了很多功能和优化。更适合国内用户使用，更方便更实用，让Godogen 更加方便地用于游戏开发。
-项目地址：[Godogen](https://github.com/alex-erm/godogen)
+本项目是继承自 [https://github.com/htdt/godogen](https://github.com/htdt/godogen) 项目的，添加了很多功能和优化。更适合国内用户使用，更方便更实用，让Godogen 更加方便地用于游戏开发。
+项目地址：[Godogen](https://github.com/htdt/godogen)
