@@ -1,6 +1,5 @@
 # liang's Godogen: 使用 Claude Code 构建完整 Godot 4 项目的技能集
 
-[![Watch the video](https://img.youtube.com/vi/eUz19GROIpY/maxresdefault.jpg)](https://youtu.be/eUz19GROIpY)
 
 [观看演示](https://youtu.be/eUz19GROIpY) · [提示词](demo_prompts.md)
 
