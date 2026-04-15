@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(png|jpg|jpeg|wav|mp3|ogg|svg|ttf|otf\\)$\")",
+      "Bash(grep -E \"\\\\.\\(png|jpg|jpeg|svg|webp\\)$\")",
+      "Bash(grep -E \"\\\\.gd$\")",
+      "Bash(grep -E \"\\\\.\\(wav|ogg|mp3\\)$\")",
+      "Bash(grep -v '^D:\\\\game-test\\\\godot-open-rpg-main$dir$')",
+      "Bash(explorer.exe D:\\\\game-test\\\\godot-open-rpg-main:*)",
+      "Bash(grep -E \"\\\\.\\(tscn|gd|tscn\\)$\")",
+      "Bash(xargs grep:*)",
+      "Bash(find \"D:\\\\game-test\\\\godogen-master\\\\godot-open-rpg\" -name \"*.tscn\" -exec grep -l \"Interaction\\\\|Node2D\\\\|Marker2D\" {} \\\\;)",
+      "Bash(ls:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(\"D:/Godot_v4.6.2-stable_win64.exe\" --path \"D:/game-test/godogen-master/godot-open-rpg\")",
+      "Bash(powershell:*)",
+      "Bash(tee /tmp/godot_debug.log)",
+      "Bash(echo \"exit: $?\")"
+    ]
+  }
+}

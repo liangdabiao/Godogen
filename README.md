@@ -1,4 +1,4 @@
-# Godogen: Claude Code skills that build complete Godot 4 projects
+# liang's Godogen: 使用 Claude Code 构建完整 Godot 4 项目的技能集
 
 [![Watch the video](https://img.youtube.com/vi/eUz19GROIpY/maxresdefault.jpg)](https://youtu.be/eUz19GROIpY)
 
@@ -10,9 +10,9 @@
 
 - **三个 Claude Code skills** — 一个编排器在单个 100万 token 上下文中运行完整 pipeline（规划、构建、调试），而两个分支支持 skills 处理 Godot API 查询和可视化 QA，不会污染主上下文。
 - **Godot 4 输出** — 真正的项目，包含正确的场景树、脚本和资源组织。
-- **资源生成** — Gemini 创建精确的参考图和角色；xAI Grok 处理纹理和简单物体；Tripo3D 将图片转换为 3D 模型。动画精灵使用 Grok 视频生成并检测循环。预算意识：最大化每分钱产生的视觉效果。
+- **资源生成** — Gemini 创建精确的参考图和角色；xAI Grok 处理纹理和简单物体（可选）；Tripo3D 将图片转换为 3D 模型。动画精灵使用 Gemini nano gif生成并检测循环。预算意识：最大化每分钱产生的视觉效果。
 - **GDScript 专业知识** — 自定义构建的语言参考和延迟加载的 API 文档，覆盖所有 850+ Godot 类，弥补 LLM 在 GDScript 训练数据上的不足。
-- **可视化 QA 闭环** — 从运行的游戏中捕获实际截图，使用 Gemini Flash 和 Claude vision 进行分析。包含自由形式可视化调试的问答模式。能捕捉 z-fighting、缺失纹理、物理破损等问题。
+- **可视化 QA 闭环** — 从运行的游戏中捕获实际截图，使用 Gemini Flash 和 Claude vision (或者国内视觉大模型也可以) 进行分析。包含自由形式可视化调试的问答模式。能捕捉 z-fighting、缺失纹理、物理破损等问题。
 - **可在普通硬件上运行** — 任何装有 Godot 和 Claude Code 的 PC 都能工作。
 
 ## 新增文档
@@ -34,12 +34,32 @@
 - [Godot 4](https://godotengine.org/download/)（headless 或 editor）已在 PATH 中
 - 已安装 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
 - API keys 环境变量：
-  - `GOOGLE_API_KEY` — [Google AI Studio](https://aistudio.google.com/)，用于 Gemini 图片生成（参考图、角色、精确工作）
-  - `XAI_API_KEY` — [xAI Grok](https://console.x.ai/home)，用于图片/视频生成（纹理、简单物体）
   - `TRIPO3D_API_KEY` — [Tripo3D](https://platform.tripo3d.ai/)，用于图片转 3D 模型（仅 3D 游戏需要）
+  - `THREE_ZERO_TWO_AI_KEY` — [302.ai](https://api.302.ai/)，用于精灵图生成和背景去除（国内 API 代理）
 - Python 3 + pip（资源工具会自动安装依赖）
 - 系统包：`mesa-utils`、`ffmpeg`（详细说明见 [setup.md](setup.md)，包含 macOS）
 - 测试环境：Ubuntu、Debian 和 macOS
+
+其实就是配置一个 302.ai API API key 就可以运行了：
+```
+# Linux/macOS
+export THREE_ZERO_TWO_AI_KEY="your-api-key"
+
+# Windows PowerShell
+$env:THREE_ZERO_TWO_AI_KEY="your-api-key"
+```
+利用了302.ai 以下api:
+```
+REWRITE_ENDPOINT = "https://api.302ai.cn/v1/chat/completions"
+REWRITE_MODEL = "gemini-3.1-flash-image-preview"
+
+SPRITE_ENDPOINT = "https://api.302.ai/ws/api/v3/google/nano-banana-2/text-to-image"
+SPRITE_EDIT_ENDPOINT = "https://api.302.ai/ws/api/v3/google/nano-banana-2/edit"
+
+API_URL = "https://api.302.ai/recraft/v1/images/removeBackground"
+```
+
+
 
 ### 创建游戏项目
 
@@ -84,35 +104,8 @@
 
 支持 macOS（Metal）和 Linux（X11/xvfb + 可选 GPU）。硬件渲染时支持视频导出。
 
-### 测试框架
 
-SceneTree 脚本编写规范，支持控制台断言和模拟输入。
+### 开源项目继承
 
-## 路线图
-
-- 探索 C# 作为 GDScript 替代方案
-- 发布完整的端到端游戏作为公开演示
-- 探索 Bevy Engine 作为 Godot 替代方案
-
-## 更新日志
-
-**2026-04-03 — 单上下文架构**（当前）
-- 将任务执行器合并到 godogen — 完整 pipeline 在单个 100万 token 上下文中运行
-- 添加 godot-api skill（分支、Sonnet）用于 Godot 类 API 查询
-- 添加 visual-qa skill（分支）使用 Gemini Flash、Claude vision 和问答模式
-- 风险优先分解取代任务 DAG
-- Android debug APK 导出
-
-**2026-03-25 — xAI Grok 视频**
-- 添加 xAI Grok 视频生成用于动画精灵（参考图 → 姿态 → 视频 → 帧 → 循环裁剪）
-- 使用 BiRefNet 多信号抠图重写背景去除
-- macOS 支持，原生 channel 状态更新
-
-**2026-03-09 — 初始发布**
-- 双 skill 架构：godogen 编排器 + godot-task 执行器（分支）
-- Gemini 图片生成，Tripo3D 用于 3D 模型
-- 通过 Gemini Flash 进行可视化 QA
-- 截图和视频捕获，演示视频
-- GDScript 参考系统，带延迟双层 API 查询
-
-关注进度：[@alex_erm](https://x.com/alex_erm)
+本项目是继承自 [Godogen](https://github.com/alex-erm/godogen) 项目的，添加了很多功能和优化。更适合国内用户使用，更方便更实用，让Godogen 更加方便地用于游戏开发。
+项目地址：[Godogen](https://github.com/alex-erm/godogen)
