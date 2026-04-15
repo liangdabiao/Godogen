@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_3vyb7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 20.0
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
+radius = 35.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1480358836]
+collision_mask = 30
+script = ExtResource("1_3vyb7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1420046882]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1852980767]
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=30521260]
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=782277167]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2032855843]
+shape = SubResource("CircleShape2D_qhqgy")

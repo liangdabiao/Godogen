@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_7ukg5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_drdry"]
+size = Vector2(48, 80)
+
+[node name="Obstacle" type="StaticBody2D" unique_id=1191724706]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_7ukg5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=943823449]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1482393719]
+shape = SubResource("RectangleShape2D_drdry")

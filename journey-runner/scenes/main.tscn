@@ -1,0 +1,173 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game_starter.gd" id="1_tbgi4"]
+[ext_resource type="Script" path="res://scripts/platform_spawner.gd" id="2_tefeu"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="3_o6xl0"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="4_tipki"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="5_85g3d"]
+
+[node name="Main" type="Node2D" unique_id=2087711436]
+script = ExtResource("1_tbgi4")
+
+[node name="Background" type="ParallaxBackground" parent="." unique_id=1497194774]
+
+[node name="SkyLayer" type="ParallaxLayer" parent="Background" unique_id=1420321208]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="SkySprite" type="Sprite2D" parent="Background/SkyLayer" unique_id=183231944]
+scale = Vector2(2, 2)
+centered = false
+offset = Vector2(0, -100)
+
+[node name="MountainLayer" type="ParallaxLayer" parent="Background" unique_id=1835652647]
+motion_scale = Vector2(0.3, 0.15)
+motion_offset = Vector2(0, 200)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="MountainSprite" type="Sprite2D" parent="Background/MountainLayer" unique_id=142887612]
+scale = Vector2(2, 2)
+centered = false
+offset = Vector2(0, -150)
+
+[node name="CloudIslandLayer" type="ParallaxLayer" parent="Background" unique_id=1413748148]
+motion_scale = Vector2(0.5, 0.2)
+motion_offset = Vector2(0, 100)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="CloudIslandSprite" type="Sprite2D" parent="Background/CloudIslandLayer" unique_id=918130290]
+scale = Vector2(2, 2)
+centered = false
+offset = Vector2(0, -200)
+
+[node name="ForegroundLayer" type="ParallaxLayer" parent="Background" unique_id=1622377944]
+motion_scale = Vector2(0.8, 0.1)
+motion_offset = Vector2(0, 400)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="ForegroundSprite" type="Sprite2D" parent="Background/ForegroundLayer" unique_id=461818595]
+scale = Vector2(2, 2)
+centered = false
+offset = Vector2(0, -300)
+
+[node name="World" type="Node2D" parent="." unique_id=1428625098]
+script = ExtResource("2_tefeu")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1480358836 instance=ExtResource("3_o6xl0")]
+position = Vector2(200, 300)
+collision_mask = 30
+script = ExtResource("4_tipki")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=50741631]
+position = Vector2(0, -50)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1185745469]
+layer = 100
+
+[node name="HUDControl" type="Control" parent="UILayer" unique_id=1607859801]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("5_85g3d")
+
+[node name="TopBar" type="HBoxContainer" parent="UILayer/HUDControl" unique_id=299401723]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = -20.0
+theme_override_constants/separation = 20
+
+[node name="DistanceLabel" type="Label" parent="UILayer/HUDControl/TopBar" unique_id=2015498195]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "距离: 0米"
+
+[node name="ScoreLabel" type="Label" parent="UILayer/HUDControl/TopBar" unique_id=625221618]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.84313726, 0, 1)
+text = "分数: 0"
+horizontal_alignment = 1
+
+[node name="LivesContainer" type="HBoxContainer" parent="UILayer/HUDControl/TopBar" unique_id=10671532]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PeachLabel" type="Label" parent="UILayer/HUDControl/TopBar" unique_id=855306988]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+text = "蟠桃: 0"
+
+[node name="RestartButton" type="Button" parent="UILayer/HUDControl/TopBar" unique_id=1225945816]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.84313726, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "重新开始"
+
+[node name="BottomBar" type="HBoxContainer" parent="UILayer/HUDControl" unique_id=35466173]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -20.0
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PowerUpIcon" type="TextureRect" parent="UILayer/HUDControl/BottomBar" unique_id=1003432027]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="GameOverPanel" type="PanelContainer" parent="UILayer/HUDControl" unique_id=2055924872]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/HUDControl/GameOverPanel" unique_id=915135210]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Title" type="Label" parent="UILayer/HUDControl/GameOverPanel/VBox" unique_id=1780654653]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "游戏结束"
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="UILayer/HUDControl/GameOverPanel/VBox" unique_id=16580849]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "最终分数: 0"
+horizontal_alignment = 1
+
+[node name="FinalDistance" type="Label" parent="UILayer/HUDControl/GameOverPanel/VBox" unique_id=665381833]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "距离: 0米"
+horizontal_alignment = 1
+
+[node name="RestartHint" type="Label" parent="UILayer/HUDControl/GameOverPanel/VBox" unique_id=2062236394]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "按 空格键 重新开始"
+horizontal_alignment = 1

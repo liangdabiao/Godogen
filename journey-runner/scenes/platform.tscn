@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/platform.gd" id="1_ba0x2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlgqw"]
+size = Vector2(200, 40)
+
+[node name="Platform" type="StaticBody2D" unique_id=212437657]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ba0x2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1536360155]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939902417]
+shape = SubResource("RectangleShape2D_nlgqw")
